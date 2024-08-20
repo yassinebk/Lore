@@ -1,0 +1,54 @@
+name: Recreate Wordlist
+
+permissions:
+  content: write
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Clone Seclists
+        run: |
+          wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip \
+            && unzip SecList.zip \
+            && rm -f SecList.zip
+
+      - name: Clone duplicut repository
+        run: |
+          git clone https://github.com/nil0x42/duplicut
+          cd duplicut/ && make
+
+      - name: Verify dediplic installation
+        run: |
+          duplicut --help  # Example command to verify the installation
+
+      - name: Create OneListForAll
+        run: |
+          git clone https://github.com/six2dez/OneListForAll
+          bash olfa.sh
+
+      - name: Prepare Final Zip
+        run: |
+          zip -r wordlists.zip Seclists onelistforallmicro.txt onelistforallshort.txt onelistforall.txt
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_name: yassinebk/lore
+          file: wordlists.zip
+          asset_name: wordlists.zip
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: "New Release"
