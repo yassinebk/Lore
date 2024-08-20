@@ -49,7 +49,7 @@ jobs:
           ls -la 
           zip -r wordlists.zip Seclists onelistforallmicro.txt onelistforallshort.txt onelistforall.txt
 
-            - name: Upload binaries to release
+      - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_name: yassinebk/
