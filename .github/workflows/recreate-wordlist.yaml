@@ -39,6 +39,12 @@ jobs:
       - name: Prepare Final Zip
         run: |
           zip -r wordlists.zip Seclists onelistforallmicro.txt onelistforallshort.txt onelistforall.txt
+          
+      - name: Clone Seclists
+        run: |
+          wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip \
+            && unzip SecList.zip \
+            && rm -f SecList.zip
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
@@ -50,9 +56,4 @@ jobs:
           overwrite: true
           body: "New Release"
           
-      - name: Clone Seclists
-        run: |
-          wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip \
-            && unzip SecList.zip \
-            && rm -f SecList.zip
-
+      
