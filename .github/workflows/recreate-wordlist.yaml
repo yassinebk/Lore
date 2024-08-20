@@ -31,7 +31,7 @@ jobs:
           mkdir -p $HOME/.local/bin
           echo "$HOME/.local/bin" >> $GITHUB_PATH
           git clone https://github.com/nil0x42/duplicut
-          cd duplicut/ && make && cp duplicut .local/bin/duplicut
+          cd duplicut/ && make && cp ./duplicut $HOME/.local/bin/
 
       - name: Verify dediplic installation
         run: |
