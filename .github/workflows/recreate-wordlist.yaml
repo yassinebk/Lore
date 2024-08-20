@@ -34,7 +34,7 @@ jobs:
       - name: Create OneListForAll
         run: |
           git clone https://github.com/six2dez/OneListForAll
-          bash olfa.sh
+          cd OneListForAll && bash olfa.sh
 
       - name: Prepare Final Zip
         run: |
