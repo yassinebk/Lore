@@ -36,17 +36,20 @@ jobs:
           git clone https://github.com/six2dez/OneListForAll
           cd OneListForAll && bash olfa.sh
 
-      - name: Prepare Final Zip
-        run: |
-          zip -r wordlists.zip Seclists onelistforallmicro.txt onelistforallshort.txt onelistforall.txt
-          
       - name: Clone Seclists
         run: |
           wget -c https://github.com/danielmiessler/SecLists/archive/master.zip -O SecList.zip \
             && unzip SecList.zip \
             && rm -f SecList.zip
 
-      - name: Upload binaries to release
+      - name: Prepare Final Zip
+        run: |
+          mv OneListForAll/onelistforall*.txt .
+          mv SecLists-master Seclists
+          ls -la 
+          zip -r wordlists.zip Seclists onelistforallmicro.txt onelistforallshort.txt onelistforall.txt
+
+            - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_name: yassinebk/
@@ -55,5 +58,3 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
           body: "New Release"
-          
-      
