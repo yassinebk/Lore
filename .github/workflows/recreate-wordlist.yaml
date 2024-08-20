@@ -9,8 +9,7 @@ on:
       - main
 
 jobs:
-
-   setup:
+  setup:
     permissions:
       contents: write
 
@@ -28,9 +27,12 @@ jobs:
 
       - name: Clone duplicut repository
         run: |
+
+          mkdir -p $HOME/.local/bin
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
           git clone https://github.com/nil0x42/duplicut
-          cd duplicut/ && make  && mv ./duplicut /usr/bin
-          
+          cd duplicut/ && make && cp duplicut .local/bin/duplicut
+
       - name: Verify dediplic installation
         run: |
           ./duplicut --help  # Example command to verify the installation
