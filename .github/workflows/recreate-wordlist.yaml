@@ -1,8 +1,5 @@
 name: Recreate Wordlist
 
-permissions:
-  content: write
-
 on:
   push:
     branches:
@@ -12,7 +9,11 @@ on:
       - main
 
 jobs:
-  setup:
+
+   setup:
+    permissions:
+      contents: write
+
     runs-on: ubuntu-latest
 
     steps:
@@ -46,7 +47,7 @@ jobs:
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
-          repo_name: yassinebk/lore
+          repo_name: yassinebk/
           file: wordlists.zip
           asset_name: wordlists.zip
           tag: ${{ github.ref }}
