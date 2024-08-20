@@ -29,11 +29,11 @@ jobs:
       - name: Clone duplicut repository
         run: |
           git clone https://github.com/nil0x42/duplicut
-          cd duplicut/ && make
-
+          cd duplicut/ && make  && mv ./duplicut /usr/bin
+          
       - name: Verify dediplic installation
         run: |
-          duplicut --help  # Example command to verify the installation
+          ./duplicut --help  # Example command to verify the installation
 
       - name: Create OneListForAll
         run: |
